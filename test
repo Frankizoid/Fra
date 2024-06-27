@@ -1,0 +1,87 @@
+"""This file is a Te reo Māori Quiz for 8-13 year olds."""
+import easygui
+# Questions for the quiz.
+Questions = ["Which of these words means “under” in te reo?",
+             "What is an English word for “pukapuka”?",
+             """Which te reo word could mean either
+             “clock” or “orange” in English?""",
+             "Where is Te Wairere?"]
+# Choices for the quiz.
+Choices = [["runga", "raro", "roto", "waho"],
+           ["book", "table", "clock", "wall"],
+           ["kikorangi ", "karaka", "pango", "whero"],
+           ["Alexandra", "Clyde", "Bannockburn", "Cromwell"]]
+# Answers for the quizs
+Answer = ["raro", "book", "karaka", "Cromwell"]
+# Other Verabils
+MinAge = 8
+MaxAge = 13
+OtherAge = 9
+Set_Score = 0
+# Intro and age input.
+
+Name = easygui.enterbox("Hello what is your name?")
+
+easygui.msgbox("Hello "+Name+" welcome to the Te reo Māori Quiz.")
+
+Age = easygui.integerbox("What is your age?")
+
+# Age sorter
+while True:
+
+    if Age > MaxAge:
+
+        Older_younger = easygui.buttonbox("This quiz is made for 8-13" +
+                                          " year olds I encourage you to " +
+                                          "try the Te reo Māori Youth Quiz?" +
+                                          "would you like to?",
+                                          choices=["Yes", "No"])
+
+        if Older_younger == "Yes":
+            easygui.msgbox("We do not have that quiz at" +
+                           "the moment so Have a good day.")
+            break
+
+        else:
+            Age = OtherAge
+
+    elif Age < MinAge:
+        easygui.msgbox("Sorry you are too young to play" +
+                       "this quiz come back whe you are 8")
+        break
+
+    elif Age > MinAge or Age < MaxAge:
+        # Start of the quiz.
+        for qus in range(0, 4):
+            user_guess = easygui.buttonbox(Questions[qus],
+                                           choices=(Choices)[qus])
+
+            if user_guess == (Answer[qus]):
+                Set_Score += 1
+                easygui.msgbox("You got it right!")
+
+            else:
+                easygui.msgbox("You got it wrong try again" +
+                               "(You will not get a point)")
+                # If user get question wrong.
+                counter = 0
+                while user_guess != (Answer[qus]) and counter < 2:
+                    user_guess = easygui.buttonbox(Questions[qus],
+                                                   choices=(Choices)[qus])
+                    counter += 1
+                    if user_guess == Answer[qus]:
+                        easygui.msgbox("You got it!")
+
+                    elif counter == 1:
+                        easygui.msgbox("You got it worng. 1 more try")
+
+                    elif counter == 2:
+                        easygui.msgbox("You got it wrong 3 times " +
+                                       "the rigth awncer was " +
+                                       Answer[qus])
+        # Outro and Score.
+        easygui.msgbox("Congrasts you have finshed " +
+                       "now get off my land you got " +
+                       str(Set_Score) +
+                       " out of 4")
+        break
